@@ -6,7 +6,6 @@ export default makeStyles((theme) => ({
     objectFit: 'cover',
     width: '100%',
     maxHeight: '600px',
-
   },
   card: {
     display: 'flex',
@@ -28,12 +27,21 @@ export default makeStyles((theme) => ({
     },
   },
   recommendedPosts: {
-    display: 'flex',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gap: '20px',
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
+      gridTemplateColumns: '1fr',
+      gap: '10px',
     },
   },
   loadingPaper: {
-    display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px', borderRadius: '15px', height: '39vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '20px',
+    borderRadius: '15px',
+    height: '39vh',
   },
 }));
