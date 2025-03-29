@@ -1,13 +1,13 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import moment from 'moment';
+import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
 import { useDispatch } from 'react-redux';
+import moment from 'moment';
 
-import { deletePost, likePost } from '../../../actions/posts';
+import { likePost, deletePost } from '../../../actions/posts';
 import useStyles from './styles';
 
 const Post = ({ post, setCurrentId }) => {
@@ -37,7 +37,9 @@ const Post = ({ post, setCurrentId }) => {
       </div>
       {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
         <div className={classes.overlay2}>
-          <Button style={{ color: 'white' }} onClick={() => { setCurrentId(post._id) }} size="small"><MoreHorizIcon fontSize="medium" /></Button>
+          <Button onClick={() => setCurrentId(post._id)} style={{ color: 'white' }} size="small">
+            <MoreHorizIcon fontSize="medium" />
+          </Button>
         </div>
       )}
       <div className={classes.details}>
@@ -51,7 +53,10 @@ const Post = ({ post, setCurrentId }) => {
         <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
           <Likes />
         </Button>
-        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (<Button size="small" color="primary" onClick={() => dispatch(deletePost(post._id))}><DeleteIcon fontSize="small" /> Delete</Button>
+        {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+            <DeleteIcon fontSize="small" /> Delete
+          </Button>
         )}
       </CardActions>
     </Card>
