@@ -21,12 +21,15 @@ app.get('/', (req, res) => {
   res.send(`APP IS RUNNING.`)
 });
 
-mongoose.connect(process.env.CONNECTION_URL)
+const PORT = process.env.PORT || 5000;
+const CONNECTION_URL = process.env.CONNECTION_URL;
+
+mongoose.connect(CONNECTION_URL)
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(`Server is running on port: http://localhost:${process.env.PORT}`);
-    })
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server is running on port: ${PORT}`);
+    });
   })
   .catch((error) => {
-    console.log(`${error} did not connect`);
-  })
+    console.error('MongoDB connection error:', error.message);
+  });
