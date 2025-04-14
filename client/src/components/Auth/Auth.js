@@ -43,7 +43,6 @@ const Auth = () => {
   const googleSuccess = async (res) => {
     try {
       const decoded = jwtDecode(res.credential);
-      console.log('Decoded User Info:', decoded);
 
       const result = {
         name: decoded.name,
