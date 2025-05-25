@@ -3,11 +3,15 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from "dotenv"
+import job from './config/cron.js';
+
 import postRoutes from './routes/post.js'
 import usersRoutes from './routes/user.js'
 
 const app = express();
 dotenv.config();
+
+if (process.env.NODE_ENV === "production") job.start();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -18,7 +22,7 @@ app.use('/posts', postRoutes);
 app.use('/user', usersRoutes);
 
 app.get('/', (req, res) => {
-  res.send(`APP IS RUNNING.`)
+  res.status(200).send(`APP IS RUNNING.`);
 });
 
 const PORT = process.env.PORT || 5000;
